@@ -1,0 +1,26 @@
+meta {
+  name: Get Random Quote
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://api.quotable.io/random
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status is 200", () => {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response has content", () => {
+    expect(res.body).to.have.property("content");
+  });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

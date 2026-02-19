@@ -1,0 +1,30 @@
+meta {
+  name: Get Tags
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://api.quotable.io/tags
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("Status is 200", () => {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Response is array", () => {
+    expect(res.body).to.be.an("array").that.is.not.empty;
+  });
+  
+  test("First tag has name", () => {
+    expect(res.body[0]).to.have.property("name");
+  });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

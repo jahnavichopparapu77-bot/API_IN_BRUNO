@@ -1,0 +1,35 @@
+meta {
+  name: Get Technology Quotes
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://api.quotable.io/quotes?tags=technology
+  body: none
+  auth: inherit
+}
+
+params:query {
+  tags: technology
+}
+
+tests {
+  test("Status is 200", () => {
+    expect(res.status).to.equal(200);
+  });
+  
+  test("Results array exists", () => {
+    expect(res.body).to.have.property("results");
+    expect(res.body.results).to.be.an("array").that.is.not.empty;
+  });
+  
+  test("First quote has content", () => {
+    expect(res.body.results[0]).to.have.property("content");
+  });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
